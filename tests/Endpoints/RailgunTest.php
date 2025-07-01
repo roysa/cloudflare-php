@@ -29,7 +29,7 @@ class RailgunTest extends TestCase
         $railgun = new \Cloudflare\API\Endpoints\Railgun($mock);
         $result = $railgun->create($details['name']);
 
-        $this->assertObjectHasAttribute('result', $result);
+        $this->assertObjectHasProperty('result', $result);
 
         foreach ($details as $property => $value) {
             $this->assertEquals($result->result->{ $property }, $value);
@@ -58,8 +58,8 @@ class RailgunTest extends TestCase
         $railgun = new \Cloudflare\API\Endpoints\Railgun($mock);
         $result = $railgun->list(1, 20, 'desc');
 
-        $this->assertObjectHasAttribute('result', $result);
-        $this->assertObjectHasAttribute('result_info', $result);
+        $this->assertObjectHasProperty('result', $result);
+        $this->assertObjectHasProperty('result_info', $result);
         $this->assertEquals('e928d310693a83094309acf9ead50448', $railgun->getBody()->result[0]->id);
     }
 
@@ -99,8 +99,8 @@ class RailgunTest extends TestCase
         $railgun = new \Cloudflare\API\Endpoints\Railgun($mock);
         $result = $railgun->getZones('e928d310693a83094309acf9ead50448');
 
-        $this->assertObjectHasAttribute('result', $result);
-        $this->assertObjectHasAttribute('result_info', $result);
+        $this->assertObjectHasProperty('result', $result);
+        $this->assertObjectHasProperty('result_info', $result);
         $this->assertEquals('023e105f4ecef8ad9ca31a8372d0c353', $railgun->getBody()->result[0]->id);
     }
 
