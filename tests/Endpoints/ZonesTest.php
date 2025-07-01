@@ -82,13 +82,8 @@ class ZonesTest extends TestCase
     {
         $response = $this->getPsr7JsonResponseForFixture('Endpoints/activationTest.json');
 
-        // Create mock dependencies
-        $mockAuth = $this->createMock(\Cloudflare\API\Auth\Auth::class);
-
         // Create adapter mock with constructor args
-        $mock = $this->getMockBuilder(\Cloudflare\API\Adapter\Adapter::class)
-            ->setConstructorArgs([$mockAuth, 'https://api.cloudflare.com/client/v4/'])
-            ->getMock();
+        $mock = $this->getAdapterMock();
 
         $mock->method('put')->willReturn($response);
 
