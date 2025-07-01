@@ -12,7 +12,7 @@ class ZonesTest extends TestCase
     {
         $response = $this->getPsr7JsonResponseForFixture('Endpoints/addZone.json');
 
-        $mock = $this->getMockBuilder(\Cloudflare\API\Adapter\Adapter::class)->getMock();
+        $mock = $this->getAdapterMock();
         $mock->method('post')->willReturn($response);
 
         $mock->expects($this->once())
@@ -30,7 +30,7 @@ class ZonesTest extends TestCase
 
         $response = $this->getPsr7JsonResponseForFixture('Endpoints/createPageRule.json');
 
-        $mock = $this->getMockBuilder(\Cloudflare\API\Adapter\Adapter::class)->getMock();
+        $mock = $this->getAdapterMock();
         $mock->method('post')->willReturn($response);
 
         $mock->expects($this->once())
@@ -55,7 +55,7 @@ class ZonesTest extends TestCase
     {
         $response = $this->getPsr7JsonResponseForFixture('Endpoints/addZone.json');
 
-        $mock = $this->getMockBuilder(\Cloudflare\API\Adapter\Adapter::class)->getMock();
+        $mock = $this->getAdapterMock();
         $mock->method('post')->willReturn($response);
 
         $mock->expects($this->once())
@@ -82,7 +82,14 @@ class ZonesTest extends TestCase
     {
         $response = $this->getPsr7JsonResponseForFixture('Endpoints/activationTest.json');
 
-        $mock = $this->getMockBuilder(\Cloudflare\API\Adapter\Adapter::class)->getMock();
+        // Create mock dependencies
+        $mockAuth = $this->createMock(\Cloudflare\API\Auth\Auth::class);
+
+        // Create adapter mock with constructor args
+        $mock = $this->getMockBuilder(\Cloudflare\API\Adapter\Adapter::class)
+            ->setConstructorArgs([$mockAuth, 'https://api.cloudflare.com/client/v4/'])
+            ->getMock();
+
         $mock->method('put')->willReturn($response);
 
         $mock->expects($this->once())
@@ -102,7 +109,7 @@ class ZonesTest extends TestCase
     {
         $response = $this->getPsr7JsonResponseForFixture('Endpoints/listZones.json');
 
-        $mock = $this->getMockBuilder(\Cloudflare\API\Adapter\Adapter::class)->getMock();
+        $mock = $this->getAdapterMock();
         $mock->method('get')->willReturn($response);
 
         $mock->expects($this->once())
@@ -135,7 +142,7 @@ class ZonesTest extends TestCase
     {
         $response = $this->getPsr7JsonResponseForFixture('Endpoints/getZoneById.json');
 
-        $mock = $this->getMockBuilder(\Cloudflare\API\Adapter\Adapter::class)->getMock();
+        $mock = $this->getAdapterMock();
         $mock->method('get')->willReturn($response);
 
         $mock->expects($this->once())
@@ -154,7 +161,7 @@ class ZonesTest extends TestCase
     {
         $response = $this->getPsr7JsonResponseForFixture('Endpoints/getZoneId.json');
 
-        $mock = $this->getMockBuilder(\Cloudflare\API\Adapter\Adapter::class)->getMock();
+        $mock = $this->getAdapterMock();
         $mock->method('get')->willReturn($response);
 
         $mock->expects($this->once())
@@ -180,7 +187,7 @@ class ZonesTest extends TestCase
     {
         $response = $this->getPsr7JsonResponseForFixture('Endpoints/getAnalyticsDashboard.json');
 
-        $mock = $this->getMockBuilder(\Cloudflare\API\Adapter\Adapter::class)->getMock();
+        $mock = $this->getAdapterMock();
         $mock->method('get')->willReturn($response);
 
         $mock->expects($this->once())
@@ -201,7 +208,7 @@ class ZonesTest extends TestCase
     {
         $response = $this->getPsr7JsonResponseForFixture('Endpoints/changeDevelopmentMode.json');
 
-        $mock = $this->getMockBuilder(\Cloudflare\API\Adapter\Adapter::class)->getMock();
+        $mock = $this->getAdapterMock();
         $mock->method('patch')->willReturn($response);
 
         $mock->expects($this->once())

@@ -11,7 +11,9 @@ class ZoneSettingsTest extends TestCase
     {
         $response = $this->getPsr7JsonResponseForFixture('Endpoints/getServerSideExclude.json');
 
-        $mock = $this->getMockBuilder(Adapter::class)->getMock();
+        $mock = $this->getMockBuilder(Adapter::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $mock->method('get')->willReturn($response);
 
         $mock->expects($this->once())->method('get');
@@ -26,7 +28,9 @@ class ZoneSettingsTest extends TestCase
     {
         $response = $this->getPsr7JsonResponseForFixture('Endpoints/updateServerSideExclude.json');
 
-        $mock = $this->getMockBuilder(Adapter::class)->getMock();
+        $mock = $this->getMockBuilder(Adapter::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $mock->method('patch')->willReturn($response);
 
         $mock->expects($this->once())->method('patch');
@@ -41,7 +45,9 @@ class ZoneSettingsTest extends TestCase
     {
         $response = $this->getPsr7JsonResponseForFixture('Endpoints/getBrowserCacheTtlSetting.json');
 
-        $mock = $this->getMockBuilder(Adapter::class)->getMock();
+        $mock = $this->getMockBuilder(Adapter::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $mock->method('get')->willReturn($response);
 
         $mock->expects($this->once())->method('get');
@@ -56,7 +62,9 @@ class ZoneSettingsTest extends TestCase
     {
         $response = $this->getPsr7JsonResponseForFixture('Endpoints/updateBrowserCacheTtlSetting.json');
 
-        $mock = $this->getMockBuilder(Adapter::class)->getMock();
+        $mock = $this->getMockBuilder(Adapter::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $mock->method('patch')->willReturn($response);
 
         $mock->expects($this->once())->method('patch');

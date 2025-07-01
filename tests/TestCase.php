@@ -43,4 +43,20 @@ abstract class TestCase extends BaseTestCase
 
         return new Psr7\Response($statusCode, ['Content-Type' => 'application/json'], $stream);
     }
+
+    /**
+     * Returns a mock of the Adapter class with constructor arguments.
+     *
+     * @return \PHPUnit\Framework\MockObject\MockObject
+     */
+    protected function getAdapterMock()
+    {
+        $mockAuth = $this->createMock(\Cloudflare\API\Auth\Auth::class);
+
+        $mock = $this->getMockBuilder(\Cloudflare\API\Adapter\Adapter::class)
+            ->setConstructorArgs([$mockAuth, 'https://api.cloudflare.com/client/v4/'])
+            ->getMock();
+
+        return $mock;
+    }
 }
