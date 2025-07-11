@@ -25,7 +25,7 @@ class WorkerRoutes implements API
     public function listRoutes(string $zoneId): array
     {
         $response = $this->adapter->get('zones/' . $zoneId . '/workers/routes');
-        return $this->getBody($response);
+        return json_decode($response->getBody(), true);
     }
 
     /**
@@ -45,7 +45,7 @@ class WorkerRoutes implements API
 
         $response = $this->adapter->post('zones/' . $zoneId . '/workers/routes', $options);
 
-        $body = $this->getBody($response);
+        $body = json_decode($response->getBody(), true);
 
         return $body['success'];
     }
@@ -60,7 +60,7 @@ class WorkerRoutes implements API
     public function getRoute(string $zoneId, string $routeId): array
     {
         $response = $this->adapter->get('zones/' . $zoneId . '/workers/routes/' . $routeId);
-        return $this->getBody($response);
+        return json_decode($response->getBody(), true);
     }
 
     /**
@@ -81,7 +81,7 @@ class WorkerRoutes implements API
 
         $response = $this->adapter->put('zones/' . $zoneId . '/workers/routes/' . $routeId, $options);
 
-        $body = $this->getBody($response);
+        $body = json_decode($response->getBody(), true);
 
         return $body['success'];
     }
@@ -97,7 +97,7 @@ class WorkerRoutes implements API
     {
         $response = $this->adapter->delete('zones/' . $zoneId . '/workers/routes/' . $routeId);
 
-        $body = $this->getBody($response);
+        $body = json_decode($response->getBody(), true);
 
         return $body['success'];
     }

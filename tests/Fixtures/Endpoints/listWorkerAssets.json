@@ -1,0 +1,19 @@
+{
+  "errors": [],
+  "messages": [],
+  "result": [
+    {
+      "binding": "ASSET_1",
+      "name": "sample.txt",
+      "content_type": "text/plain",
+      "size": 14
+    },
+    {
+      "binding": "ASSET_2",
+      "name": "image.png",
+      "content_type": "image/png",
+      "size": 15
+    }
+  ],
+  "success": true
+}

@@ -1,0 +1,17 @@
+{
+  "errors": [],
+  "messages": [],
+  "result": [
+    {
+      "id": "9a7806061c88ada191ed06f989cc3dac",
+      "pattern": "*example.com/api/*",
+      "script": "my-worker"
+    },
+    {
+      "id": "f8c4c9f1c8a6da3f8c8a6da3f8c8a6da",
+      "pattern": "*example.com/admin/*",
+      "script": "admin-worker"
+    }
+  ],
+  "success": true
+}
