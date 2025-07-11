@@ -9,7 +9,7 @@ use Cloudflare\API\Traits\BodyAccessorTrait;
 class AccessRules implements API
 {
     use BodyAccessorTrait;
-    
+
     private $adapter;
 
     public function __construct(Adapter $adapter)
@@ -90,7 +90,7 @@ class AccessRules implements API
         string $zoneID,
         string $mode,
         Configurations $configuration,
-        string $notes = null
+        ?string $notes = null
     ): bool {
         $options = [
             'mode' => $mode,
@@ -116,7 +116,7 @@ class AccessRules implements API
         string $zoneID,
         string $ruleID,
         string $mode,
-        string $notes = null
+        ?string $notes = null
     ): bool {
         $options = [
             'mode' => $mode
