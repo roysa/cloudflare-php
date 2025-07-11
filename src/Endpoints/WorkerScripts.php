@@ -25,7 +25,7 @@ class WorkerScripts implements API
     public function listScripts(string $accountId): array
     {
         $response = $this->adapter->get('accounts/' . $accountId . '/workers/scripts');
-        return $this->getBody($response);
+        return json_decode($response->getBody(), true);
     }
 
     /**
@@ -52,17 +52,19 @@ class WorkerScripts implements API
      */
     public function uploadScript(string $accountId, string $scriptName, string $script, array $metadata = []): bool
     {
-        $options = [
-            'script' => $script
+        $headers = [
+            'Content-Type' => 'application/javascript'
         ];
 
+        $metadataJson = '';
         if (!empty($metadata)) {
-            $options['metadata'] = $metadata;
+            $metadataJson = json_encode($metadata);
+            $headers['Metadata'] = $metadataJson;
         }
 
-        $response = $this->adapter->put('accounts/' . $accountId . '/workers/scripts/' . $scriptName, $options);
+        $response = $this->adapter->put('accounts/' . $accountId . '/workers/scripts/' . $scriptName, $script, $headers);
 
-        $body = $this->getBody($response);
+        $body = json_decode($response->getBody(), true);
 
         return $body['success'];
     }
@@ -78,7 +80,7 @@ class WorkerScripts implements API
     {
         $response = $this->adapter->delete('accounts/' . $accountId . '/workers/scripts/' . $scriptName);
 
-        $body = $this->getBody($response);
+        $body = json_decode($response->getBody(), true);
 
         return $body['success'];
     }

@@ -33,7 +33,7 @@ class Guzzle implements Adapter
     /**
      * @inheritDoc
      */
-    public function get(string $uri, array $data = [], array $headers = []): ResponseInterface
+    public function get(string $uri, $data = [], array $headers = []): ResponseInterface
     {
         return $this->request('get', $uri, $data, $headers);
     }
@@ -41,7 +41,7 @@ class Guzzle implements Adapter
     /**
      * @inheritDoc
      */
-    public function post(string $uri, array $data = [], array $headers = []): ResponseInterface
+    public function post(string $uri, $data = [], array $headers = []): ResponseInterface
     {
         return $this->request('post', $uri, $data, $headers);
     }
@@ -49,7 +49,7 @@ class Guzzle implements Adapter
     /**
      * @inheritDoc
      */
-    public function put(string $uri, array $data = [], array $headers = []): ResponseInterface
+    public function put(string $uri, $data = [], array $headers = []): ResponseInterface
     {
         return $this->request('put', $uri, $data, $headers);
     }
@@ -57,7 +57,7 @@ class Guzzle implements Adapter
     /**
      * @inheritDoc
      */
-    public function patch(string $uri, array $data = [], array $headers = []): ResponseInterface
+    public function patch(string $uri, $data = [], array $headers = []): ResponseInterface
     {
         return $this->request('patch', $uri, $data, $headers);
     }
@@ -65,7 +65,7 @@ class Guzzle implements Adapter
     /**
      * @inheritDoc
      */
-    public function delete(string $uri, array $data = [], array $headers = []): ResponseInterface
+    public function delete(string $uri, $data = [], array $headers = []): ResponseInterface
     {
         return $this->request('delete', $uri, $data, $headers);
     }
@@ -73,17 +73,26 @@ class Guzzle implements Adapter
     /**
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
-    public function request(string $method, string $uri, array $data = [], array $headers = [])
+    public function request(string $method, string $uri, $data = [], array $headers = [])
     {
         if (!in_array($method, ['get', 'post', 'put', 'patch', 'delete'])) {
             throw new \InvalidArgumentException('Request method must be get, post, put, patch, or delete');
         }
 
         try {
-            $response = $this->client->$method($uri, [
+            $options = [
                 'headers' => $headers,
-                ($method === 'get' ? 'query' : 'json') => $data,
-            ]);
+            ];
+
+            if ($method === 'get') {
+                $options['query'] = $data;
+            } elseif (is_string($data) && isset($headers['Content-Type']) && $headers['Content-Type'] === 'application/javascript') {
+                $options['body'] = $data;
+            } else {
+                $options['json'] = $data;
+            }
+
+            $response = $this->client->$method($uri, $options);
         } catch (RequestException $err) {
             throw ResponseException::fromRequestException($err);
         }

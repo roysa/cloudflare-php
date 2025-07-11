@@ -26,7 +26,7 @@ class WorkerAssets implements API
     public function listAssets(string $accountId, string $scriptName): array
     {
         $response = $this->adapter->get('accounts/' . $accountId . '/workers/scripts/' . $scriptName . '/assets');
-        return $this->getBody($response);
+        return json_decode($response->getBody(), true);
     }
 
     /**
@@ -45,7 +45,7 @@ class WorkerAssets implements API
 
         $response = $this->adapter->put('accounts/' . $accountId . '/workers/scripts/' . $scriptName . '/assets', $options);
 
-        $body = $this->getBody($response);
+        $body = json_decode($response->getBody(), true);
 
         return $body['success'];
     }
@@ -62,7 +62,7 @@ class WorkerAssets implements API
     {
         $response = $this->adapter->delete('accounts/' . $accountId . '/workers/scripts/' . $scriptName . '/assets/' . $assetName);
 
-        $body = $this->getBody($response);
+        $body = json_decode($response->getBody(), true);
 
         return $body['success'];
     }

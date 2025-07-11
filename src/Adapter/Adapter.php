@@ -31,46 +31,46 @@ interface Adapter
      * RFCs, it is never useful).
      *
      * @param string $uri
-     * @param array $data
+     * @param mixed $data
      * @param array $headers
      *
      * @return mixed
      */
-    public function get(string $uri, array $data = [], array $headers = []): ResponseInterface;
+    public function get(string $uri, $data = [], array $headers = []): ResponseInterface;
 
     /**
      * @param string $uri
-     * @param array $data
+     * @param mixed $data
      * @param array $headers
      *
      * @return mixed
      */
-    public function post(string $uri, array $data = [], array $headers = []): ResponseInterface;
+    public function post(string $uri, $data = [], array $headers = []): ResponseInterface;
 
     /**
      * @param string $uri
-     * @param array $data
+     * @param mixed $data
      * @param array $headers
      *
      * @return mixed
      */
-    public function put(string $uri, array $data = [], array $headers = []): ResponseInterface;
+    public function put(string $uri, $data = [], array $headers = []): ResponseInterface;
 
     /**
      * @param string $uri
-     * @param array $data
+     * @param mixed $data
      * @param array $headers
      *
      * @return mixed
      */
-    public function patch(string $uri, array $data = [], array $headers = []): ResponseInterface;
+    public function patch(string $uri, $data = [], array $headers = []): ResponseInterface;
 
     /**
      * @param string $uri
-     * @param array $data
+     * @param mixed $data
      * @param array $headers
      *
      * @return mixed
      */
-    public function delete(string $uri, array $data = [], array $headers = []): ResponseInterface;
+    public function delete(string $uri, $data = [], array $headers = []): ResponseInterface;
 }

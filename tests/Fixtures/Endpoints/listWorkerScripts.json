@@ -1,0 +1,42 @@
+{
+  "errors": [
+    {
+      "code": 1000,
+      "message": "message",
+      "documentation_url": "documentation_url",
+      "source": {
+        "pointer": "pointer"
+      }
+    }
+  ],
+  "messages": [
+    {
+      "code": 1000,
+      "message": "message",
+      "documentation_url": "documentation_url",
+      "source": {
+        "pointer": "pointer"
+      }
+    }
+  ],
+  "result": [
+    {
+      "has_assets": false,
+      "has_modules": false,
+      "logpush": false,
+      "placement": {
+        "mode": "smart"
+      },
+      "placement_mode": "smart",
+      "tail_consumers": [
+        {
+          "service": "my-log-consumer",
+          "environment": "production",
+          "namespace": "my-namespace"
+        }
+      ],
+      "usage_model": "standard"
+    }
+  ],
+  "success": true
+}
