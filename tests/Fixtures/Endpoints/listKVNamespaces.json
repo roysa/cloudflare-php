@@ -1,0 +1,17 @@
+{
+  "errors": [],
+  "messages": [],
+  "result": [
+    {
+      "id": "0f2ac74b498b48028cb68387c421e279",
+      "title": "My KV Namespace",
+      "supports_url_encoding": true
+    },
+    {
+      "id": "a3f5a3d796b3477d9b8c8c69aa9bd326",
+      "title": "Another KV Namespace",
+      "supports_url_encoding": true
+    }
+  ],
+  "success": true
+}

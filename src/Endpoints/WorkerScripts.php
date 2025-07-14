@@ -70,6 +70,35 @@ class WorkerScripts implements API
     }
 
     /**
+     * Bind a KV Namespace to a Worker Script
+     *
+     * @param string $accountId Account ID
+     * @param string $scriptName Name of the script
+     * @param string $namespaceId KV Namespace ID
+     * @param string $bindingName Name to use for the binding in the script
+     * @return bool
+     */
+    public function bindKVNamespace(string $accountId, string $scriptName, string $namespaceId, string $bindingName): bool
+    {
+        // First, get the current script to preserve its content
+        $scriptContent = $this->getScript($accountId, $scriptName);
+
+        // Create metadata with KV namespace binding
+        $metadata = [
+            'bindings' => [
+                [
+                    'type' => 'kv_namespace',
+                    'name' => $bindingName,
+                    'namespace_id' => $namespaceId
+                ]
+            ]
+        ];
+
+        // Upload the script with the new metadata
+        return $this->uploadScript($accountId, $scriptName, $scriptContent, $metadata);
+    }
+
+    /**
      * Delete a Worker Script
      *
      * @param string $accountId Account ID

@@ -1,0 +1,22 @@
+{
+  "errors": [],
+  "messages": [],
+  "result": [
+    {
+      "name": "test-key-1",
+      "expiration": 1577836800,
+      "metadata": {
+        "someMetadataKey": "someMetadataValue"
+      }
+    },
+    {
+      "name": "test-key-2",
+      "expiration": 1577836800
+    }
+  ],
+  "success": true,
+  "result_info": {
+    "count": 2,
+    "cursor": "next-cursor-value"
+  }
+}
