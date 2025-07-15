@@ -113,4 +113,18 @@ class WorkerScripts implements API
 
         return $body['success'];
     }
+
+    /**
+     * Get Script Bindings
+     *
+     * @param string $accountId Account ID
+     * @param string $namespaceName Namespace name
+     * @param string $scriptName Name of the script
+     * @return array
+     */
+    public function getScriptBindings(string $accountId, string $namespaceName, string $scriptName): array
+    {
+        $response = $this->adapter->get('accounts/' . $accountId . '/workers/dispatch/namespaces/' . $namespaceName . '/scripts/' . $scriptName . '/bindings');
+        return json_decode($response->getBody(), true);
+    }
 }

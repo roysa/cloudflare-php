@@ -135,4 +135,29 @@ class WorkerScriptsTest extends TestCase
 
         $this->assertTrue($result);
     }
+
+    public function testGetScriptBindings()
+    {
+        $response = $this->getPsr7JsonResponseForFixture('Endpoints/getScriptBindings.json');
+
+        $mock = $this->getAdapterMock();
+        $mock->method('get')->willReturn($response);
+
+        $mock->expects($this->once())
+            ->method('get')
+            ->with($this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/workers/dispatch/namespaces/my-namespace/scripts/my-worker/bindings'));
+
+        $scripts = new WorkerScripts($mock);
+        $result = $scripts->getScriptBindings('023e105f4ecef8ad9ca31a8372d0c353', 'my-namespace', 'my-worker');
+
+        $this->assertArrayHasKey('result', $result);
+        $this->assertIsArray($result['result']);
+        $this->assertCount(3, $result['result']);
+        $this->assertEquals('MY_KV', $result['result'][0]['name']);
+        $this->assertEquals('kv_namespace', $result['result'][0]['type']);
+        $this->assertEquals('MY_ENV_VAR', $result['result'][1]['name']);
+        $this->assertEquals('plain_text', $result['result'][1]['type']);
+        $this->assertEquals('MY_SECRET', $result['result'][2]['name']);
+        $this->assertEquals('secret_text', $result['result'][2]['type']);
+    }
 }

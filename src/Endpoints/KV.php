@@ -35,7 +35,7 @@ class KV implements API
             'direction' => $direction
         ];
 
-        $response = $this->adapter->get('accounts/' . $accountId . '/workers/kv/namespaces', $query);
+        $response = $this->adapter->get('accounts/' . $accountId . '/storage/kv/namespaces', $query);
         return json_decode($response->getBody(), true);
     }
 
@@ -52,7 +52,7 @@ class KV implements API
             'title' => $title
         ];
 
-        $response = $this->adapter->post('accounts/' . $accountId . '/workers/kv/namespaces', $options);
+        $response = $this->adapter->post('accounts/' . $accountId . '/storage/kv/namespaces', $options);
         return json_decode($response->getBody(), true);
     }
 
@@ -65,7 +65,7 @@ class KV implements API
      */
     public function getNamespace(string $accountId, string $namespaceId): array
     {
-        $response = $this->adapter->get('accounts/' . $accountId . '/workers/kv/namespaces/' . $namespaceId);
+        $response = $this->adapter->get('accounts/' . $accountId . '/storage/kv/namespaces/' . $namespaceId);
         return json_decode($response->getBody(), true);
     }
 
@@ -78,7 +78,7 @@ class KV implements API
      */
     public function deleteNamespace(string $accountId, string $namespaceId): bool
     {
-        $response = $this->adapter->delete('accounts/' . $accountId . '/workers/kv/namespaces/' . $namespaceId);
+        $response = $this->adapter->delete('accounts/' . $accountId . '/storage/kv/namespaces/' . $namespaceId);
         $body = json_decode($response->getBody(), true);
         return $body['success'];
     }
@@ -97,7 +97,7 @@ class KV implements API
             'title' => $title
         ];
 
-        $response = $this->adapter->put('accounts/' . $accountId . '/workers/kv/namespaces/' . $namespaceId, $options);
+        $response = $this->adapter->put('accounts/' . $accountId . '/storage/kv/namespaces/' . $namespaceId, $options);
         $body = json_decode($response->getBody(), true);
         return $body['success'];
     }
@@ -115,20 +115,20 @@ class KV implements API
     public function listKeys(string $accountId, string $namespaceId, string $prefix = null, string $cursor = null, int $limit = null): array
     {
         $query = [];
-        
+
         if ($prefix !== null) {
             $query['prefix'] = $prefix;
         }
-        
+
         if ($cursor !== null) {
             $query['cursor'] = $cursor;
         }
-        
+
         if ($limit !== null) {
             $query['limit'] = $limit;
         }
 
-        $response = $this->adapter->get('accounts/' . $accountId . '/workers/kv/namespaces/' . $namespaceId . '/keys', $query);
+        $response = $this->adapter->get('accounts/' . $accountId . '/storage/kv/namespaces/' . $namespaceId . '/keys', $query);
         return json_decode($response->getBody(), true);
     }
 
@@ -142,7 +142,7 @@ class KV implements API
      */
     public function readKey(string $accountId, string $namespaceId, string $key): string
     {
-        $response = $this->adapter->get('accounts/' . $accountId . '/workers/kv/namespaces/' . $namespaceId . '/values/' . $key);
+        $response = $this->adapter->get('accounts/' . $accountId . '/storage/kv/namespaces/' . $namespaceId . '/values/' . $key);
         return (string)$response->getBody();
     }
 
@@ -160,16 +160,16 @@ class KV implements API
     public function writeKey(string $accountId, string $namespaceId, string $key, string $value, int $expiration = null, int $expirationTtl = null): bool
     {
         $headers = [];
-        
+
         if ($expiration !== null) {
             $headers['Expiration'] = $expiration;
         }
-        
+
         if ($expirationTtl !== null) {
             $headers['Expiration-TTL'] = $expirationTtl;
         }
 
-        $response = $this->adapter->put('accounts/' . $accountId . '/workers/kv/namespaces/' . $namespaceId . '/values/' . $key, $value, $headers);
+        $response = $this->adapter->put('accounts/' . $accountId . '/storage/kv/namespaces/' . $namespaceId . '/values/' . $key, $value, $headers);
         $body = json_decode($response->getBody(), true);
         return $body['success'];
     }
@@ -184,7 +184,7 @@ class KV implements API
      */
     public function writeMultipleKeys(string $accountId, string $namespaceId, array $kvPairs): bool
     {
-        $response = $this->adapter->put('accounts/' . $accountId . '/workers/kv/namespaces/' . $namespaceId . '/bulk', $kvPairs);
+        $response = $this->adapter->put('accounts/' . $accountId . '/storage/kv/namespaces/' . $namespaceId . '/bulk', $kvPairs);
         $body = json_decode($response->getBody(), true);
         return $body['success'];
     }
@@ -199,7 +199,7 @@ class KV implements API
      */
     public function deleteKey(string $accountId, string $namespaceId, string $key): bool
     {
-        $response = $this->adapter->delete('accounts/' . $accountId . '/workers/kv/namespaces/' . $namespaceId . '/values/' . $key);
+        $response = $this->adapter->delete('accounts/' . $accountId . '/storage/kv/namespaces/' . $namespaceId . '/values/' . $key);
         $body = json_decode($response->getBody(), true);
         return $body['success'];
     }
@@ -218,7 +218,7 @@ class KV implements API
             'keys' => $keys
         ];
 
-        $response = $this->adapter->delete('accounts/' . $accountId . '/workers/kv/namespaces/' . $namespaceId . '/bulk', $options);
+        $response = $this->adapter->delete('accounts/' . $accountId . '/storage/kv/namespaces/' . $namespaceId . '/bulk', $options);
         $body = json_decode($response->getBody(), true);
         return $body['success'];
     }

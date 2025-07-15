@@ -1,0 +1,21 @@
+{
+  "errors": [],
+  "messages": [],
+  "result": [
+    {
+      "name": "MY_KV",
+      "type": "kv_namespace",
+      "namespace_id": "0f2ac74b498b48028cb68387c421e279"
+    },
+    {
+      "name": "MY_ENV_VAR",
+      "type": "plain_text",
+      "text": "some value"
+    },
+    {
+      "name": "MY_SECRET",
+      "type": "secret_text"
+    }
+  ],
+  "success": true
+}

@@ -14,7 +14,7 @@ class KVTest extends TestCase
         $mock->expects($this->once())
             ->method('get')
             ->with(
-                $this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/workers/kv/namespaces'),
+                $this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/storage/kv/namespaces'),
                 $this->equalTo([
                     'page' => 1,
                     'per_page' => 20,
@@ -40,7 +40,7 @@ class KVTest extends TestCase
         $mock->expects($this->once())
             ->method('post')
             ->with(
-                $this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/workers/kv/namespaces'),
+                $this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/storage/kv/namespaces'),
                 $this->equalTo([
                     'title' => 'My KV Namespace'
                 ])
@@ -63,7 +63,7 @@ class KVTest extends TestCase
 
         $mock->expects($this->once())
             ->method('get')
-            ->with($this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/workers/kv/namespaces/0f2ac74b498b48028cb68387c421e279'));
+            ->with($this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/storage/kv/namespaces/0f2ac74b498b48028cb68387c421e279'));
 
         $kv = new KV($mock);
         $result = $kv->getNamespace('023e105f4ecef8ad9ca31a8372d0c353', '0f2ac74b498b48028cb68387c421e279');
@@ -82,7 +82,7 @@ class KVTest extends TestCase
 
         $mock->expects($this->once())
             ->method('delete')
-            ->with($this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/workers/kv/namespaces/0f2ac74b498b48028cb68387c421e279'));
+            ->with($this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/storage/kv/namespaces/0f2ac74b498b48028cb68387c421e279'));
 
         $kv = new KV($mock);
         $result = $kv->deleteNamespace('023e105f4ecef8ad9ca31a8372d0c353', '0f2ac74b498b48028cb68387c421e279');
@@ -100,7 +100,7 @@ class KVTest extends TestCase
         $mock->expects($this->once())
             ->method('put')
             ->with(
-                $this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/workers/kv/namespaces/0f2ac74b498b48028cb68387c421e279'),
+                $this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/storage/kv/namespaces/0f2ac74b498b48028cb68387c421e279'),
                 $this->equalTo([
                     'title' => 'New KV Namespace Title'
                 ])
@@ -122,7 +122,7 @@ class KVTest extends TestCase
         $mock->expects($this->once())
             ->method('get')
             ->with(
-                $this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/workers/kv/namespaces/0f2ac74b498b48028cb68387c421e279/keys'),
+                $this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/storage/kv/namespaces/0f2ac74b498b48028cb68387c421e279/keys'),
                 $this->equalTo([
                     'prefix' => 'test',
                     'cursor' => 'cursor-value',
@@ -147,7 +147,7 @@ class KVTest extends TestCase
 
         $mock->expects($this->once())
             ->method('get')
-            ->with($this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/workers/kv/namespaces/0f2ac74b498b48028cb68387c421e279/values/test-key'));
+            ->with($this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/storage/kv/namespaces/0f2ac74b498b48028cb68387c421e279/values/test-key'));
 
         $kv = new KV($mock);
         $result = $kv->readKey('023e105f4ecef8ad9ca31a8372d0c353', '0f2ac74b498b48028cb68387c421e279', 'test-key');
@@ -165,7 +165,7 @@ class KVTest extends TestCase
         $mock->expects($this->once())
             ->method('put')
             ->with(
-                $this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/workers/kv/namespaces/0f2ac74b498b48028cb68387c421e279/values/test-key'),
+                $this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/storage/kv/namespaces/0f2ac74b498b48028cb68387c421e279/values/test-key'),
                 $this->equalTo('test-value'),
                 $this->equalTo([
                     'Expiration' => 3600,
@@ -202,7 +202,7 @@ class KVTest extends TestCase
         $mock->expects($this->once())
             ->method('put')
             ->with(
-                $this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/workers/kv/namespaces/0f2ac74b498b48028cb68387c421e279/bulk'),
+                $this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/storage/kv/namespaces/0f2ac74b498b48028cb68387c421e279/bulk'),
                 $this->equalTo($kvPairs)
             );
 
@@ -221,7 +221,7 @@ class KVTest extends TestCase
 
         $mock->expects($this->once())
             ->method('delete')
-            ->with($this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/workers/kv/namespaces/0f2ac74b498b48028cb68387c421e279/values/test-key'));
+            ->with($this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/storage/kv/namespaces/0f2ac74b498b48028cb68387c421e279/values/test-key'));
 
         $kv = new KV($mock);
         $result = $kv->deleteKey('023e105f4ecef8ad9ca31a8372d0c353', '0f2ac74b498b48028cb68387c421e279', 'test-key');
@@ -241,7 +241,7 @@ class KVTest extends TestCase
         $mock->expects($this->once())
             ->method('delete')
             ->with(
-                $this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/workers/kv/namespaces/0f2ac74b498b48028cb68387c421e279/bulk'),
+                $this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/storage/kv/namespaces/0f2ac74b498b48028cb68387c421e279/bulk'),
                 $this->equalTo(['keys' => $keys])
             );
 
