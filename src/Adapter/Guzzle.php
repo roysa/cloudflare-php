@@ -70,6 +70,26 @@ class Guzzle implements Adapter
         return $this->request('delete', $uri, $data, $headers);
     }
 
+
+    /**
+     * @inheritDoc
+     */
+    public function putMultipart(string $uri, array $multipart, array $headers = []): ResponseInterface
+    {
+        try {
+            $options = [
+                'headers' => $headers,
+                'multipart' => $multipart
+            ];
+
+            $response = $this->client->put($uri, $options);
+        } catch (RequestException $err) {
+            throw ResponseException::fromRequestException($err);
+        }
+
+        return $response;
+    }
+
     /**
      * @SuppressWarnings(PHPMD.StaticAccess)
      */

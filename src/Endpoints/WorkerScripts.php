@@ -70,33 +70,53 @@ class WorkerScripts implements API
     }
 
     /**
-     * Bind a KV Namespace to a Worker Script
+     * Upload a Worker Script using multipart/form-data
      *
      * @param string $accountId Account ID
      * @param string $scriptName Name of the script
-     * @param string $namespaceId KV Namespace ID
-     * @param string $bindingName Name to use for the binding in the script
+     * @param string $script Content of the Worker script
+     * @param array $metadata Optional metadata for the script
      * @return bool
      */
-    public function bindKVNamespace(string $accountId, string $scriptName, string $namespaceId, string $bindingName): bool
+    public function uploadScriptMultipart(string $accountId, string $scriptName, string $script, array $metadata = []): bool
     {
-        // First, get the current script to preserve its content
-        $scriptContent = $this->getScript($accountId, $scriptName);
-
-        // Create metadata with KV namespace binding
-        $metadata = [
-            'bindings' => [
-                [
-                    'type' => 'kv_namespace',
-                    'name' => $bindingName,
-                    'namespace_id' => $namespaceId
+        // Set up required multipart parts
+        $multipart = [
+            [
+                'name' => 'file',
+                'contents' => $script,
+                'filename' => 'worker.js',
+                'headers' => [
+                    'Content-Type' => 'application/javascript'
                 ]
             ]
         ];
 
-        // Upload the script with the new metadata
-        return $this->uploadScript($accountId, $scriptName, $scriptContent, $metadata);
+        // According to Cloudflare API docs, we need to specify main_module
+        // https://developers.cloudflare.com/workers/configuration/multipart-upload-metadata/
+        $metadataContent = array_merge(
+            ['main_module' => 'worker.js'],
+            $metadata
+        );
+
+        $multipart[] = [
+            'name' => 'metadata',
+            'contents' => json_encode($metadataContent),
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ]
+        ];
+
+        $response = $this->adapter->putMultipart(
+            'accounts/' . $accountId . '/workers/scripts/' . $scriptName,
+            $multipart
+        );
+
+        $body = json_decode($response->getBody(), true);
+
+        return $body['success'];
     }
+
 
     /**
      * Delete a Worker Script

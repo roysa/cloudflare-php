@@ -73,4 +73,16 @@ interface Adapter
      * @return mixed
      */
     public function delete(string $uri, $data = [], array $headers = []): ResponseInterface;
+
+    /**
+     * Sends a PUT request with multipart/form-data.
+     *
+     * @param string $uri
+     * @param array $multipart Array of multipart form data
+     * @param array $headers
+     *
+     * @return mixed
+     */
+    public function putMultipart(string $uri, array $multipart, array $headers = []): ResponseInterface;
+
 }
