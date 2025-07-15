@@ -95,7 +95,10 @@ class WorkerScripts implements API
         // According to Cloudflare API docs, we need to specify main_module
         // https://developers.cloudflare.com/workers/configuration/multipart-upload-metadata/
         $metadataContent = array_merge(
-            ['main_module' => 'worker.js'],
+            [
+                'main_module' => 'worker.js',
+                'compatibility_date' => date('Y-m-d'),
+            ],
             $metadata
         );
 
