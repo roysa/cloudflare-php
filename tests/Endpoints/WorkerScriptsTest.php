@@ -129,7 +129,12 @@ class WorkerScriptsTest extends TestCase
             ],
             [
                 'name' => 'metadata',
-                'contents' => json_encode(['main_module' => 'worker.js']),
+                'contents' => json_encode([
+                    'main_module' => 'worker.js',
+                    'compatibility_date' => date('Y-m-d'),
+                    'usage_model' => 'bundled',
+                    'type' => 'esm'
+                ]),
                 'headers' => [
                     'Content-Type' => 'application/json'
                 ]
@@ -170,7 +175,12 @@ class WorkerScriptsTest extends TestCase
         ];
 
         $metadataWithMainModule = array_merge(
-            ['main_module' => 'worker.js'],
+            [
+                'main_module' => 'worker.js',
+                'compatibility_date' => date('Y-m-d'),
+                'usage_model' => 'bundled',
+                'type' => 'esm'
+            ],
             $metadata
         );
 

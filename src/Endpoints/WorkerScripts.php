@@ -87,7 +87,7 @@ class WorkerScripts implements API
                 'contents' => $script,
                 'filename' => 'worker.js',
                 'headers' => [
-                    'Content-Type' => 'application/javascript'
+                    'Content-Type' => 'application/javascript+module'
                 ]
             ]
         ];
@@ -96,8 +96,10 @@ class WorkerScripts implements API
         // https://developers.cloudflare.com/workers/configuration/multipart-upload-metadata/
         $metadataContent = array_merge(
             [
+                'type' => 'esm',
                 'main_module' => 'worker.js',
                 'compatibility_date' => date('Y-m-d'),
+                'usage_model' => 'bundled',
             ],
             $metadata
         );
@@ -106,7 +108,8 @@ class WorkerScripts implements API
             'name' => 'metadata',
             'contents' => json_encode($metadataContent),
             'headers' => [
-                'Content-Type' => 'application/json'
+                'Content-Type' => 'application/json',
+                'Worker-Module-Type' => 'esm'
             ]
         ];
 
