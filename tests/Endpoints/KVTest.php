@@ -179,6 +179,98 @@ class KVTest extends TestCase
         $this->assertTrue($result);
     }
 
+    public function testWriteKeyWithArray()
+    {
+        $response = $this->getPsr7JsonResponseForFixture('Endpoints/writeKVKey.json');
+
+        $mock = $this->getAdapterMock();
+        $mock->method('put')->willReturn($response);
+
+        $arrayValue = ['key1' => 'value1', 'key2' => 'value2'];
+
+        $mock->expects($this->once())
+            ->method('put')
+            ->with(
+                $this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/storage/kv/namespaces/0f2ac74b498b48028cb68387c421e279/values/test-key'),
+                $this->equalTo($arrayValue),
+                $this->equalTo([])
+            );
+
+        $kv = new KV($mock);
+        $result = $kv->writeKey('023e105f4ecef8ad9ca31a8372d0c353', '0f2ac74b498b48028cb68387c421e279', 'test-key', $arrayValue);
+
+        $this->assertTrue($result);
+    }
+
+    public function testWriteKeyWithObject()
+    {
+        $response = $this->getPsr7JsonResponseForFixture('Endpoints/writeKVKey.json');
+
+        $mock = $this->getAdapterMock();
+        $mock->method('put')->willReturn($response);
+
+        $objectValue = (object)['property1' => 'value1', 'property2' => 'value2'];
+
+        $mock->expects($this->once())
+            ->method('put')
+            ->with(
+                $this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/storage/kv/namespaces/0f2ac74b498b48028cb68387c421e279/values/test-key'),
+                $this->equalTo($objectValue),
+                $this->equalTo([])
+            );
+
+        $kv = new KV($mock);
+        $result = $kv->writeKey('023e105f4ecef8ad9ca31a8372d0c353', '0f2ac74b498b48028cb68387c421e279', 'test-key', $objectValue);
+
+        $this->assertTrue($result);
+    }
+
+    public function testWriteKeyWithBoolean()
+    {
+        $response = $this->getPsr7JsonResponseForFixture('Endpoints/writeKVKey.json');
+
+        $mock = $this->getAdapterMock();
+        $mock->method('put')->willReturn($response);
+
+        $boolValue = true;
+
+        $mock->expects($this->once())
+            ->method('put')
+            ->with(
+                $this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/storage/kv/namespaces/0f2ac74b498b48028cb68387c421e279/values/test-key'),
+                $this->equalTo($boolValue),
+                $this->equalTo([])
+            );
+
+        $kv = new KV($mock);
+        $result = $kv->writeKey('023e105f4ecef8ad9ca31a8372d0c353', '0f2ac74b498b48028cb68387c421e279', 'test-key', $boolValue);
+
+        $this->assertTrue($result);
+    }
+
+    public function testWriteKeyWithNumber()
+    {
+        $response = $this->getPsr7JsonResponseForFixture('Endpoints/writeKVKey.json');
+
+        $mock = $this->getAdapterMock();
+        $mock->method('put')->willReturn($response);
+
+        $numberValue = 12345;
+
+        $mock->expects($this->once())
+            ->method('put')
+            ->with(
+                $this->equalTo('accounts/023e105f4ecef8ad9ca31a8372d0c353/storage/kv/namespaces/0f2ac74b498b48028cb68387c421e279/values/test-key'),
+                $this->equalTo($numberValue),
+                $this->equalTo([])
+            );
+
+        $kv = new KV($mock);
+        $result = $kv->writeKey('023e105f4ecef8ad9ca31a8372d0c353', '0f2ac74b498b48028cb68387c421e279', 'test-key', $numberValue);
+
+        $this->assertTrue($result);
+    }
+
     public function testWriteMultipleKeys()
     {
         $response = $this->getPsr7JsonResponseForFixture('Endpoints/writeMultipleKVKeys.json');

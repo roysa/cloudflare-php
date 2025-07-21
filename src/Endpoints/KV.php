@@ -152,12 +152,12 @@ class KV implements API
      * @param string $accountId Account ID
      * @param string $namespaceId Namespace ID
      * @param string $key Key to write
-     * @param string $value Value to write
+     * @param mixed $value Value to write
      * @param int $expiration Optional expiration in seconds from now
      * @param int $expirationTtl Optional expiration TTL in seconds
      * @return bool
      */
-    public function writeKey(string $accountId, string $namespaceId, string $key, string $value, int $expiration = null, int $expirationTtl = null): bool
+    public function writeKey(string $accountId, string $namespaceId, string $key, mixed $value, int $expiration = null, int $expirationTtl = null): bool
     {
         $headers = [];
 
@@ -169,7 +169,11 @@ class KV implements API
             $headers['Expiration-TTL'] = $expirationTtl;
         }
 
-        $response = $this->adapter->put('accounts/' . $accountId . '/storage/kv/namespaces/' . $namespaceId . '/values/' . $key, $value, $headers);
+        $response = $this->adapter->put(
+            'accounts/' . $accountId . '/storage/kv/namespaces/' . $namespaceId . '/values/' . $key,
+            $value,
+            $headers);
+
         $body = json_decode($response->getBody(), true);
         return $body['success'];
     }
