@@ -124,19 +124,20 @@ class WorkerScriptsTest extends TestCase
                 'contents' => $scriptContent,
                 'filename' => 'worker.js',
                 'headers' => [
-                    'Content-Type' => 'application/javascript'
+                    'Content-Type' => 'application/javascript+module'
                 ]
             ],
             [
                 'name' => 'metadata',
                 'contents' => json_encode([
+                    'type' => 'esm',
                     'main_module' => 'worker.js',
                     'compatibility_date' => date('Y-m-d'),
-                    'usage_model' => 'bundled',
-                    'type' => 'esm'
+                    'usage_model' => 'bundled'
                 ]),
                 'headers' => [
-                    'Content-Type' => 'application/json'
+                    'Content-Type' => 'application/json',
+                    'Worker-Module-Type' => 'esm'
                 ]
             ]
         ];
@@ -176,10 +177,10 @@ class WorkerScriptsTest extends TestCase
 
         $metadataWithMainModule = array_merge(
             [
+                'type' => 'esm',
                 'main_module' => 'worker.js',
                 'compatibility_date' => date('Y-m-d'),
-                'usage_model' => 'bundled',
-                'type' => 'esm'
+                'usage_model' => 'bundled'
             ],
             $metadata
         );
@@ -190,14 +191,15 @@ class WorkerScriptsTest extends TestCase
                 'contents' => $scriptContent,
                 'filename' => 'worker.js',
                 'headers' => [
-                    'Content-Type' => 'application/javascript'
+                    'Content-Type' => 'application/javascript+module'
                 ]
             ],
             [
                 'name' => 'metadata',
                 'contents' => json_encode($metadataWithMainModule),
                 'headers' => [
-                    'Content-Type' => 'application/json'
+                    'Content-Type' => 'application/json',
+                    'Worker-Module-Type' => 'esm'
                 ]
             ]
         ];
